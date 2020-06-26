@@ -14,7 +14,7 @@ gd.platformer
     :alt: Required Python Versions
 
 .. image:: https://img.shields.io/pypi/status/gd.platformer.svg
-    :target: https://github.com/NeKitDS/gd.platformer/blob/master/braces
+    :target: https://github.com/NeKitDS/gd.platformer/
     :alt: Project Development Status
 
 .. image:: https://img.shields.io/pypi/dm/gd.platformer.svg
