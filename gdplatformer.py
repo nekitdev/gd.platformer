@@ -11,7 +11,7 @@ import gd  # type: ignore  # no typehints
 from pynput.keyboard import Key, Listener  # type: ignore  # no typehints
 
 import colorama  # type: ignore  # no typehints
-
+import asyncio  #type: ignore  # no typehints
 colorama.init()
 
 info = f"""(c) {__copyright__}
@@ -162,12 +162,19 @@ def on_release(key) -> bool:
     return reload_memory()  # reload memory to check if GD is closed
 
 
+def speed_on_death():
+    if memory.is_dead():
+        memory.set_speed_value(0)
+        
+
 with Listener(on_press=on_press, on_release=on_release) as listener:
     print("Waiting for Geometry Dash...")
-
+    loop = asyncio.get_event_loop()
+    asyncio.add_task(speed_on_death)
+    loop.run_forever()
     while not reload_memory():  # wait until GD is opened
         time.sleep(1)
-
+    
     # join the listener into main thread, waiting for it to stop
     listener.join()
 
