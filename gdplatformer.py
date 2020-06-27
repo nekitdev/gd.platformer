@@ -170,7 +170,7 @@ def speed_on_death():
 with Listener(on_press=on_press, on_release=on_release) as listener:
     print("Waiting for Geometry Dash...")
     loop = asyncio.get_event_loop()
-    asyncio.add_task(speed_on_death)
+    asyncio.create_task(speed_on_death)
     loop.run_forever()
     while not reload_memory():  # wait until GD is opened
         time.sleep(1)
