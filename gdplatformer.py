@@ -2,8 +2,9 @@ __title__ = "gdplatformer"
 __author__ = "NeKitDS, Sapfirenko"
 __copyright__ = "Copyright 2020 NeKitDS, Sapfirenko"
 __license__ = "MIT"
-__version__ = "0.1.1"
+__version__ = "0.1.2"
 
+import math
 import time
 
 from colorama import Fore  # type: ignore  # no typehints
@@ -61,15 +62,6 @@ except ValueError:
     pass
 
 
-def signum(number: float) -> int:  # self explanatory, get sign of a number
-    if number < 0:
-        return -1
-    elif number > 0:
-        return 1
-    else:
-        return 0
-
-
 def reload_memory() -> bool:  # try to reload memory and return reload status
     try:
         memory.reload()
@@ -124,7 +116,7 @@ def on_press(key: Key) -> bool:  # handle key press
             speed_values
         )  # get next value (jump back if last)
 
-        speed_value = signum(speed_value) * speed_values[speed_index]
+        speed_value = math.copysign(speed_values[speed_index], speed_value)
         color = colors[speed_index]  # pick color according to the speed
 
         if (
