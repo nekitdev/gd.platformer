@@ -2,7 +2,7 @@ __title__ = "gdplatformer"
 __author__ = "NeKitDS, Sapfirenko"
 __copyright__ = "Copyright 2020 NeKitDS, Sapfirenko"
 __license__ = "MIT"
-__version__ = "0.1.1"
+__version__ = "0.1.2"
 
 import time
 
@@ -24,6 +24,7 @@ how_to = """Controls:
     Left        -> Move back.
     Tab         -> Change speed.
     Right Shift -> Enable/Disable NoClip.
+    Left Shift  -> Enable/Disable player rotation.
     Left Ctrl   -> Get player size.
     Right Ctrl  -> Increment player size by 1.
     Right Alt   -> Decrement player size by 1.
@@ -47,6 +48,8 @@ default_speed = gd.api.SpeedConstant.NORMAL.value
 memory = gd.memory.get_memory(load=False)
 # noclip flag
 noclip_enabled = False
+# player rotation flag
+player_rotation = False
 # size pricision, can be changed for more precise player size
 size_precision = 1
 # set speed value to default speed
@@ -60,6 +63,11 @@ try:
 except ValueError:
     pass
 
+def enable_player_roation() -> None:
+    gd.memory.get_memory().write_bytes(gd.memory.Buffer[0x57, 0x8B, 0xF9], 0x1E9BF0)
+
+def disable_player_roation() -> None:
+    gd.memory.get_memory().write_bytes(gd.memory.Buffer[0xC2, 0x04, 0x00], 0x1E9BF0)
 
 def signum(number: float) -> int:  # self explanatory, get sign of a number
     if number < 0:
@@ -79,7 +87,7 @@ def reload_memory() -> bool:  # try to reload memory and return reload status
 
 
 def on_press(key: Key) -> bool:  # handle key press
-    global noclip_enabled, speed_value
+    global noclip_enabled, player_rotation, speed_value
 
     size = round(memory.get_size(), size_precision)  # get current size
     # reflect speed value update (if went through speed changer)
@@ -111,6 +119,18 @@ def on_press(key: Key) -> bool:  # handle key press
             memory.enable_noclip()
             print("NoClip is now enabled.")
             noclip_enabled = True
+
+    elif key == Key.shift_l:  # if left shift was pressed
+        #disable rotation if enabled, enable rotation if disabled
+        if player_rotation:
+            disable_player_roation()
+            print("Player rotation is now disabled.")
+            player_rotation = False
+
+        else:
+            enable_player_roation()
+            print("Player rotation is now enabled.")
+            player_rotation = True
 
     elif key == Key.tab:  # if tab was pressed
         try:
@@ -167,6 +187,11 @@ with Listener(on_press=on_press, on_release=on_release) as listener:
 
     while not reload_memory():  # wait until GD is opened
         time.sleep(1)
+
+    # disable player rotation
+    disable_player_roation()
+
+    print("Attached to process.")
 
     # join the listener into main thread, waiting for it to stop
     listener.join()

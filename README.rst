@@ -83,3 +83,8 @@ Authors
 -------
 
 This project is mainly developed by `NeKitDS <https://github.com/NeKitDS>`_ and `Sapfirenko <https://github.com/Sapphire1ne>`_.
+
+Contributors
+------------
+
+`Cos8o <https://github.com/Cos8o>`_: player rotation lock.
