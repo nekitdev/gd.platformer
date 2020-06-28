@@ -6,6 +6,7 @@ __version__ = "0.1.2"
 
 import math
 import time
+# import threading  # used for listening to events not related to keyboard
 
 from colorama import Fore  # type: ignore  # no typehints
 import gd  # type: ignore  # no typehints
@@ -24,6 +25,7 @@ how_to = """Controls:
     Right       -> Move forward.
     Left        -> Move back.
     Tab         -> Change speed.
+    Left Shift  -> Lock/Unlock rotation on jump.
     Right Shift -> Enable/Disable NoClip.
     Left Ctrl   -> Get player size.
     Right Ctrl  -> Increment player size by 1.
@@ -48,6 +50,8 @@ default_speed = gd.api.SpeedConstant.NORMAL.value
 memory = gd.memory.get_memory(load=False)
 # noclip flag
 noclip_enabled = False
+# player rotation flag
+rotation_unlocked = False
 # size pricision, can be changed for more precise player size
 size_precision = 1
 # set speed value to default speed
@@ -71,7 +75,7 @@ def reload_memory() -> bool:  # try to reload memory and return reload status
 
 
 def on_press(key: Key) -> bool:  # handle key press
-    global noclip_enabled, speed_value
+    global noclip_enabled, rotation_unlocked, speed_value
 
     size = round(memory.get_size(), size_precision)  # get current size
     # reflect speed value update (if went through speed changer)
@@ -91,6 +95,17 @@ def on_press(key: Key) -> bool:  # handle key press
         else:  # otherwise, decrement size
             memory.set_size(size - 1)
             print(f"Player size decremented by 1 ({size} -> {size - 1})")
+
+    elif key == Key.shift_l:  # if left shift was pressed
+        # lock rotation if unlocked, unlock rotation if locked
+        if rotation_unlocked:
+            memory.player_lock_jump_rotation()
+            print("Rotation is now locked.")
+            rotation_unlocked = False
+        else:
+            memory.player_unlock_jump_rotation()
+            print("Rotation is now unlocked.")
+            rotation_unlocked = True
 
     elif key == Key.shift_r:  # if right shift was pressed
         # disable noclip if enabled, enable noclip if disabled
@@ -159,6 +174,11 @@ with Listener(on_press=on_press, on_release=on_release) as listener:
 
     while not reload_memory():  # wait until GD is opened
         time.sleep(1)
+
+    print("Found Geometry Dash.")
+
+    # lock player rotation on jump
+    memory.player_lock_jump_rotation()
 
     # join the listener into main thread, waiting for it to stop
     listener.join()
