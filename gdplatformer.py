@@ -4,6 +4,7 @@ __copyright__ = "Copyright 2020 NeKitDS, Sapfirenko"
 __license__ = "MIT"
 __version__ = "0.1.2"
 
+import math
 import time
 
 from colorama import Fore  # type: ignore  # no typehints
@@ -68,15 +69,6 @@ def enable_player_roation() -> None:
 
 def disable_player_roation() -> None:
     gd.memory.get_memory().write_bytes(gd.memory.Buffer[0xC2, 0x04, 0x00], 0x1E9BF0)
-
-def signum(number: float) -> int:  # self explanatory, get sign of a number
-    if number < 0:
-        return -1
-    elif number > 0:
-        return 1
-    else:
-        return 0
-
 
 def reload_memory() -> bool:  # try to reload memory and return reload status
     try:
@@ -144,7 +136,7 @@ def on_press(key: Key) -> bool:  # handle key press
             speed_values
         )  # get next value (jump back if last)
 
-        speed_value = signum(speed_value) * speed_values[speed_index]
+        speed_value = math.copysign(speed_values[speed_index], speed_value)
         color = colors[speed_index]  # pick color according to the speed
 
         if (
