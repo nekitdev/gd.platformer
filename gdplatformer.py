@@ -2,11 +2,12 @@ __title__ = "gdplatformer"
 __author__ = "NeKitDS, Sapfirenko"
 __copyright__ = "Copyright 2020 NeKitDS, Sapfirenko"
 __license__ = "MIT"
-__version__ = "0.1.2"
+__version__ = "0.1.3"
 
 import math
 import time
-# import threading  # used for listening to events not related to keyboard
+import threading  # used for listening to events not related to keyboard
+from typing import Union
 
 from colorama import Fore  # type: ignore  # no typehints
 import gd  # type: ignore  # no typehints
@@ -31,10 +32,6 @@ how_to = """Controls:
     Right Ctrl  -> Increment player size by 1.
     Right Alt   -> Decrement player size by 1.
 """
-
-print(info)
-time.sleep(1)
-print(how_to)
 
 # setup colors for console
 colors = [
@@ -74,7 +71,14 @@ def reload_memory() -> bool:  # try to reload memory and return reload status
         return False
 
 
-def on_press(key: Key) -> bool:  # handle key press
+def listen_for_gd_closed(listener: Listener) -> bool:
+    while reload_memory():
+        pass  # loop until reloading returns false
+
+    listener.stop()
+
+
+def on_press(key: Union[str, Key]) -> bool:  # handle key press
     global noclip_enabled, rotation_unlocked, speed_value
 
     size = round(memory.get_size(), size_precision)  # get current size
@@ -156,31 +160,52 @@ def on_press(key: Key) -> bool:  # handle key press
     else:  # other key
         pass  # do nothing
 
-    return reload_memory()  # reload memory to check if GD is closed
 
-
-def on_release(key) -> bool:
+def on_release(key: Union[str, Key]) -> bool:
     if key in {Key.left, Key.right}:  # if left/right arrow was released
         memory.set_speed_value(0)  # set speed to 0
 
     else:  # other key
         pass  # do nothing
 
-    return reload_memory()  # reload memory to check if GD is closed
+
+def main() -> None:
+    print(info)  # show simple info
+    print(how_to)  # show tutorial on what the keys do
+
+    with Listener(on_press=on_press, on_release=on_release) as listener:
+        # create memory reloading thread
+        memory_reload_thread = threading.Thread(
+            target=listen_for_gd_closed,
+            args=(listener,),
+            name="MemoryReloadThread",
+            daemon=True,
+        )
+
+        print("Waiting for Geometry Dash...")
+
+        while not reload_memory():  # wait until GD is opened
+            time.sleep(1)
+
+        print("Found Geometry Dash.")
+
+        # start memory reloading thread
+        memory_reload_thread.start()
+
+        # lock player rotation on jump
+        memory.player_lock_jump_rotation()
+        print("Rotation is now locked.")
+
+        # patch crash on dashing backwards (by cos8o)
+        memory.write_bytes(gd.memory.Buffer[0xE9, 0xA7, 0x00], 0x1EEB92)
+        print("Patched crash on dashing backwards.")
+
+        # join the listener into main thread, waiting for it to stop
+        listener.join()
+        memory_reload_thread.join()
+
+        print("Geometry Dash is closed.")
 
 
-with Listener(on_press=on_press, on_release=on_release) as listener:
-    print("Waiting for Geometry Dash...")
-
-    while not reload_memory():  # wait until GD is opened
-        time.sleep(1)
-
-    print("Found Geometry Dash.")
-
-    # lock player rotation on jump
-    memory.player_lock_jump_rotation()
-
-    # join the listener into main thread, waiting for it to stop
-    listener.join()
-
-    print("Geometry Dash is closed.")
+if __name__ == "__main__":
+    main()

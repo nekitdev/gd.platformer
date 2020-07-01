@@ -83,4 +83,4 @@ Authors
 -------
 
 This project is mainly developed by `NeKitDS <https://github.com/NeKitDS>`_ and `Sapfirenko <https://github.com/Sapphire1ne>`_.
-Player rotation lock/unlock patch by `cos8o <https://github.com/Cos8o>`_.
+Player rotation lock/unlock patch and dashing crash fix by `cos8o <https://github.com/Cos8o>`_.

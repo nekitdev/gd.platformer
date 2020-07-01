@@ -44,5 +44,5 @@ setup(
         "Natural Language :: English",
         "Operating System :: Microsoft :: Windows",
     ],
-    entry_points={"console_scripts": ["gd.platformer = gdplatformer"]},
+    entry_points={"console_scripts": ["gd.platformer = gdplatformer:main"]},
 )
