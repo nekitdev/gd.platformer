@@ -5,6 +5,8 @@ from setuptools import setup  # type: ignore  # no typehints
 
 root = Path(__file__).parent
 
+requirements = (root / "requirements.txt").read_text("utf-8").strip().splitlines()
+
 init = (root / "gdplatformer.py").read_text("utf-8")
 
 result = re.search(
@@ -34,6 +36,7 @@ setup(
     long_description=readme,
     long_description_content_type="text/x-rst",
     include_package_data=True,
+    install_requires=requirements,
     python_requires=">=3.6",
     classifiers=[
         "Development Status :: 4 - Beta",
