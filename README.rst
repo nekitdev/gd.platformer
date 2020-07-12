@@ -75,7 +75,7 @@ You can build an executable file from the ``gdplaformer.py`` file using *pyinsta
 
 .. code:: sh
 
-    $ pyinstaller --onefile --exclude-module PIL --exclude-module numpy --exclude-module IPython --exclude-module Crypto --exclude-module lxml --icon=gdrpc.ico gdrpc.py
+    $ pyinstaller --onefile --exclude-module PIL --exclude-module numpy --exclude-module IPython --exclude-module Crypto --exclude-module lxml --icon=icon.ico gdplatformer.py
 
 Generated executable will be in ``./dist`` folder.
 
