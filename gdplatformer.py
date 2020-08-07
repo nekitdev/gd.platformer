@@ -2,7 +2,7 @@ __title__ = "gdplatformer"
 __author__ = "NeKitDS, Sapfirenko"
 __copyright__ = "Copyright 2020 NeKitDS, Sapfirenko"
 __license__ = "MIT"
-__version__ = "0.1.3"
+__version__ = "0.1.4"
 
 import math
 import time
@@ -33,6 +33,8 @@ how_to = """Controls:
     Right Alt   -> Decrement player size by 1.
 """
 
+# process name, can be changed for different executable names, I guess
+PROCESS_NAME = "GeometryDash"  # no need for ".exe"
 # setup colors for console
 colors = [
     Fore.LIGHTYELLOW_EX,
@@ -44,7 +46,7 @@ colors = [
 # set default speed to normal speed
 default_speed = gd.api.SpeedConstant.NORMAL.value
 # create gd.py memory object, without loading it (loaded when running)
-memory = gd.memory.get_memory(load=False)
+memory = gd.memory.get_memory(PROCESS_NAME, load=False)
 # noclip flag
 noclip_enabled = False
 # player rotation flag
