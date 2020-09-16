@@ -56,13 +56,15 @@ You can either invoke it from python:
 
 .. code:: python3
 
-    import gdplatformer
+    import gd.platformer
+
+    gd.platformer.main()
 
 Or run a console command:
 
 .. code:: sh
 
-    $ python -m gdplatformer
+    $ python -m gd.platformer
 
     # OR
 
@@ -71,11 +73,11 @@ Or run a console command:
 Building
 --------
 
-You can build an executable file from the ``gdplaformer.py`` file using *pyinstaller*:
+You can build an executable file from the ``gd/platformer.py`` file using *PyInstaller*:
 
 .. code:: sh
 
-    $ pyinstaller --onefile --exclude-module PIL --exclude-module numpy --exclude-module IPython --exclude-module Crypto --exclude-module lxml --icon=icon.ico gdplatformer.py
+    $ pyinstaller --onefile --exclude-module PIL --exclude-module numpy --exclude-module IPython --exclude-module Crypto --exclude-module lxml --icon=icon.ico gd/platformer.py
 
 Generated executable will be in ``./dist`` folder.
 

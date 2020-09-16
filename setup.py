@@ -7,11 +7,9 @@ root = Path(__file__).parent
 
 requirements = (root / "requirements.txt").read_text("utf-8").strip().splitlines()
 
-init = (root / "gdplatformer.py").read_text("utf-8")
+text = (root / "gd" / "platformer.py").read_text("utf-8")
 
-result = re.search(
-    r'^__version__\s*=\s*[\'"]([^\'"]*)[\'"]', init, re.MULTILINE
-)
+result = re.search(r"^__version__\s*=\s*[\"']([^\"']*)[\"']", text, re.MULTILINE)
 
 if result is None:
     raise RuntimeError("Failed to find version.")
@@ -26,11 +24,9 @@ setup(
     author="NeKitDS, Sapfirenko",
     author_email="gdpy13@gmail.com",
     url="https://github.com/NeKitDS/gd.platformer",
-    project_urls={
-        "Issue tracker": "https://github.com/NeKitDS/gd.platformer/issues"
-    },
+    project_urls={"Issue tracker": "https://github.com/NeKitDS/gd.platformer/issues"},
     version=version,
-    py_modules=["gdplatformer"],
+    packages=["gd"],
     license="MIT",
     description="Geometry Dash Platformer Mod",
     long_description=readme,
@@ -44,8 +40,9 @@ setup(
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
         "Natural Language :: English",
         "Operating System :: Microsoft :: Windows",
     ],
-    entry_points={"console_scripts": ["gd.platformer = gdplatformer:main"]},
+    entry_points={"console_scripts": ["gd.platformer = gd.platformer:main"]},
 )

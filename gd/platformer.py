@@ -74,8 +74,19 @@ def reload_memory() -> bool:  # try to reload memory and return reload status
 
 
 def listen_for_gd_closed(listener: Listener) -> bool:
-    while reload_memory():
-        pass  # loop until reloading returns false
+    should_close = False
+
+    while True:
+        if reload_memory():
+            should_close = False
+
+        else:
+            if should_close:
+                break
+
+            should_close = True
+
+        time.sleep(0.1)
 
     listener.stop()
 
@@ -146,9 +157,7 @@ def on_press(key: Union[str, Key]) -> bool:  # handle key press
             memory.set_speed_value(speed_value)  # set speed value
 
         print(
-            color
-            + f"Speed changed to #{speed_index} ({abs(speed_value)})"
-            + Fore.RESET
+            color + f"Speed changed to #{speed_index} ({abs(speed_value)})" + Fore.RESET
         )
 
     elif key == Key.right:  # if right arrow was pressed
