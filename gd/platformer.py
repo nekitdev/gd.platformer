@@ -1,4 +1,4 @@
-__title__ = "gdplatformer"
+__title__ = "platformer"
 __author__ = "NeKitDS, Sapfirenko"
 __copyright__ = "Copyright 2020 NeKitDS, Sapfirenko"
 __license__ = "MIT"
