@@ -14,7 +14,7 @@ gd.platformer
     :alt: Required Python Versions
 
 .. image:: https://img.shields.io/pypi/status/gd.platformer.svg
-    :target: https://github.com/NeKitDS/gd.platformer/
+    :target: https://github.com/nekitdev/gd.platformer/
     :alt: Project Development Status
 
 .. image:: https://img.shields.io/pypi/dm/gd.platformer.svg
@@ -43,7 +43,7 @@ In order to install the library from source, you can do the following:
 
 .. code:: sh
 
-    $ git clone https://github.com/NeKitDS/gd.platformer
+    $ git clone https://github.com/nekitdev/gd.platformer
     $ cd gd.platformer
     $ python -m pip install -U .
 
@@ -84,5 +84,5 @@ Generated executable will be in ``./dist`` folder.
 Authors
 -------
 
-This project is mainly developed by `NeKitDS <https://github.com/NeKitDS>`_ and `Sapfirenko <https://github.com/Sapphire1ne>`_.
+This project is mainly developed by `nekitdev <https://github.com/nekitdev>`_ and `Sapfirenko <https://github.com/Sapphire1ne>`_.
 Player rotation lock/unlock patch and dashing crash fix by `cos8o <https://github.com/Cos8o>`_.

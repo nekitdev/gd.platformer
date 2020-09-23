@@ -1,6 +1,6 @@
 __title__ = "platformer"
-__author__ = "NeKitDS, Sapfirenko"
-__copyright__ = "Copyright 2020 NeKitDS, Sapfirenko"
+__author__ = "nekitdev, Sapfirenko"
+__copyright__ = "Copyright 2020 nekitdev, Sapfirenko"
 __license__ = "MIT"
 __version__ = "0.1.4"
 
@@ -19,7 +19,7 @@ colorama.init()
 
 info = f"""(c) {__copyright__}
     Geometry Dash Platformer Mod (GDPM) v{__version__}.
-    Created using gd.py (https://github.com/NeKitDS/gd.py)
+    Created using gd.py (https://github.com/nekitdev/gd.py)
 """
 
 how_to = """Controls:

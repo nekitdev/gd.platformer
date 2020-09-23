@@ -21,10 +21,10 @@ readme = (root / "README.rst").read_text("utf-8")
 
 setup(
     name="gd.platformer",
-    author="NeKitDS, Sapfirenko",
+    author="nekitdev, Sapfirenko",
     author_email="gdpy13@gmail.com",
-    url="https://github.com/NeKitDS/gd.platformer",
-    project_urls={"Issue tracker": "https://github.com/NeKitDS/gd.platformer/issues"},
+    url="https://github.com/nekitdev/gd.platformer",
+    project_urls={"Issue tracker": "https://github.com/nekitdev/gd.platformer/issues"},
     version=version,
     packages=["gd"],
     license="MIT",
