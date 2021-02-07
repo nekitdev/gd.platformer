@@ -1,8 +1,8 @@
 __title__ = "platformer"
-__author__ = "nekitdev, Sapfirenko"
-__copyright__ = "Copyright 2020 nekitdev, Sapfirenko"
+__author__ = "nekitdev"
+__copyright__ = "Copyright 2020-2021 nekitdev"
 __license__ = "MIT"
-__version__ = "0.1.4"
+__version__ = "0.1.5"
 
 import math
 import time

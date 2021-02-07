@@ -21,14 +21,14 @@ readme = (root / "README.rst").read_text("utf-8")
 
 setup(
     name="gd.platformer",
-    author="nekitdev, Sapfirenko",
-    author_email="gdpy13@gmail.com",
+    author="nekitdev",
+    author_email="nekitdevofficial@gmail.com",
     url="https://github.com/nekitdev/gd.platformer",
     project_urls={"Issue tracker": "https://github.com/nekitdev/gd.platformer/issues"},
     version=version,
     packages=["gd"],
     license="MIT",
-    description="Geometry Dash Platformer Mod",
+    description="Geometry Dash Platformer Mod.",
     long_description=readme,
     long_description_content_type="text/x-rst",
     include_package_data=True,
